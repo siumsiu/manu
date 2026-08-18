@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#101010">
+<title>Manu Advancements</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root{
+  --green:#55ff55; --yellow:#ffff55; --gold:#ffd83d; --dark:#101010;
+  --panel:#c6c6c6; --panel2:#8b8b8b; --white:#fff; --black:#000;
+  --shadow:#555; --blue:#3f76e4; --red:#ff5555;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  font-family:"Press Start 2P",monospace;
+  background:#202020;
+  color:#fff;
+  image-rendering:pixelated;
+}
+button{font:inherit;cursor:pointer}
+
+.app{
+  height:100dvh;display:flex;flex-direction:column;
+  background:
+    radial-gradient(circle at 20% 10%,#333 0 1px,transparent 2px),
+    radial-gradient(circle at 80% 60%,#333 0 1px,transparent 2px),
+    #191919;
+}
+
+.top{
+  padding:10px 10px 8px;
+  flex-shrink:0;
+}
+.panel{
+  background:var(--panel);
+  border:4px solid;
+  border-color:#fff #555 #555 #fff;
+  color:#222;
+  box-shadow:0 3px 0 #000;
+}
+.header{padding:12px 10px}
+.title{
+  text-align:center;font-size:13px;line-height:1.5;
+  text-shadow:2px 2px #777;margin-bottom:10px
+}
+.subtitle{text-align:center;font-size:7px;margin-bottom:12px;color:#444}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.stat{
+  background:#111;color:#fff;border:2px solid #555;padding:7px 5px;
+  text-align:center;font-size:7px;line-height:1.5
+}
+.stat b{display:block;color:var(--green);font-size:10px;margin-top:3px}
+
+.rank{
+  margin-top:9px;background:#111;border:3px solid #000;padding:7px 7px 8px;
+}
+.rankline{display:flex;justify-content:space-between;gap:8px;font-size:7px;color:#fff;margin-bottom:6px}
+.rankname{color:var(--yellow);text-shadow:1px 1px #000}
+.xp{
+  height:14px;background:#202020;border:2px solid #000;position:relative;
+}
+.xpfill{
+  height:100%;width:0;background:#39c51d;
+  box-shadow:inset 0 2px #70ff4d;
+  transition:width .45s steps(8)
+}
+.xptext{text-align:center;color:#fff;font-size:6px;margin-top:5px}
+
+.tabs{
+  display:flex;gap:5px;overflow-x:auto;padding:0 10px 8px;
+  flex-shrink:0;scrollbar-width:none
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:0 0 auto;background:#555;color:#fff;
+  border:3px solid;border-color:#aaa #222 #222 #aaa;
+  padding:9px 8px;font-size:7px;text-shadow:1px 1px #000
+}
+.tab.active{
+  background:#c6c6c6;color:#222;text-shadow:none;
+  border-color:#fff #555 #555 #fff
+}
+
+.world{
+  flex:1;margin:0 10px 10px;min-height:0;
+  position:relative;overflow:auto;padding:18px 10px 70px;
+  border:4px solid;border-color:#202020 #8f8f8f #8f8f8f #202020;
+  transition:background 0.3s ease;
+}
+
+/* SFONDI MINECRAFT DIVERSI PER CATEGORIA */
+/* Cat 0: Overworld Grass */
+.world.bg-cat-0 {
+  background:
+    linear-gradient(to bottom,rgba(255,255,255,.08),transparent 24%),
+    repeating-linear-gradient(0deg,rgba(0,0,0,.08) 0 2px,transparent 2px 16px),
+    linear-gradient(to bottom,#5b8d3a 0 18%,#6fa344 18% 29%,#4f7d32 29% 100%);
+}
+.world.bg-cat-0:before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;
+  background:
+    radial-gradient(circle at 8% 14%,#fff 0 2px,transparent 3px),
+    radial-gradient(circle at 18% 27%,#2d5f28 0 5px,transparent 6px),
+    radial-gradient(circle at 31% 11%,#87b95a 0 6px,transparent 7px),
+    radial-gradient(circle at 46% 24%,#315d29 0 4px,transparent 5px),
+    radial-gradient(circle at 61% 12%,#8ab95c 0 7px,transparent 8px),
+    radial-gradient(circle at 77% 26%,#315d29 0 5px,transparent 6px),
+    radial-gradient(circle at 91% 10%,#7eae53 0 6px,transparent 7px),
+    linear-gradient(to bottom,transparent 0 35%,rgba(44,77,31,.28) 35% 100%);
+}
+
+/* Cat 1: Nether */
+.world.bg-cat-1 {
+  background:
+    linear-gradient(to bottom,rgba(255,255,255,.08),transparent 24%),
+    repeating-linear-gradient(0deg,rgba(0,0,0,.12) 0 2px,transparent 2px 16px),
+    linear-gradient(to bottom,#721c1c 0 18%,#501313 18% 29%,#330a0a 29% 100%);
+}
+.world.bg-cat-1:before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.6;
+  background:
+    radial-gradient(circle at 12% 20%,#ff4d4d 0 2px,transparent 4px),
+    radial-gradient(circle at 25% 60%,#9e2a2a 0 5px,transparent 7px),
+    radial-gradient(circle at 55% 30%,#ff6b6b 0 4px,transparent 6px),
+    radial-gradient(circle at 80% 75%,#220303 0 8px,transparent 10px),
+    linear-gradient(to bottom,transparent 0 35%,rgba(80,10,10,.35) 35% 100%);
+}
+
+/* Cat 2: The End */
+.world.bg-cat-2 {
+  background:
+    linear-gradient(to bottom,rgba(255,255,255,.08),transparent 24%),
+    repeating-linear-gradient(0deg,rgba(0,0,0,.15) 0 2px,transparent 2px 16px),
+    linear-gradient(to bottom,#3b2d54 0 18%,#221838 18% 29%,#0f0a1c 29% 100%);
+}
+.world.bg-cat-2:before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.65;
+  background:
+    radial-gradient(circle at 15% 18%,#d1b3ff 0 2px,transparent 4px),
+    radial-gradient(circle at 35% 70%,#5a3a8a 0 6px,transparent 8px),
+    radial-gradient(circle at 70% 25%,#a877e6 0 4px,transparent 6px),
+    radial-gradient(circle at 85% 80%,#180033 0 9px,transparent 11px),
+    linear-gradient(to bottom,transparent 0 35%,rgba(35,10,60,.4) 35% 100%);
+}
+
+/* Cat 3: Deepslate / Magma Caves */
+.world.bg-cat-3 {
+  background:
+    linear-gradient(to bottom,rgba(255,255,255,.08),transparent 24%),
+    repeating-linear-gradient(0deg,rgba(0,0,0,.15) 0 2px,transparent 2px 16px),
+    linear-gradient(to bottom,#433928 0 18%,#2d2419 18% 29%,#1a1510 29% 100%);
+}
+.world.bg-cat-3:before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.6;
+  background:
+    radial-gradient(circle at 10% 25%,#ffd700 0 2px,transparent 4px),
+    radial-gradient(circle at 40% 65%,#ff8c00 0 5px,transparent 7px),
+    radial-gradient(circle at 65% 20%,#b8860b 0 6px,transparent 8px),
+    radial-gradient(circle at 88% 70%,#2b1e10 0 8px,transparent 10px),
+    linear-gradient(to bottom,transparent 0 35%,rgba(50,30,10,.4) 35% 100%);
+}
+
+.world:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(0,0,0,.15),transparent 18%,transparent 82%,rgba(0,0,0,.15))
+}
+
+.tree{
+  position:relative;max-width:600px;margin:auto;
+  display:flex;flex-direction:column;align-items:center;gap:24px;
+  padding-bottom:20px;
+}
+.node{
+  width:min(94%,390px);position:relative;z-index:2;
+  display:flex;align-items:center;gap:10px;
+  padding:7px;background:#c6c6c6;color:#222;
+  border:3px solid;border-color:#fff #555 #555 #fff;
+  box-shadow:0 3px 0 #111;transition:.12s transform,.12s filter;
+}
+.node:active{transform:translateY(2px);filter:brightness(.9)}
+.node.done{background:#e6c94f;border-color:#fff #7c6514 #7c6514 #fff}
+.node.locked{filter:grayscale(1) brightness(.65)}
+.icon{
+  width:54px;height:54px;flex:0 0 54px;display:grid;place-items:center;
+  background:#3a3a3a;border:3px solid;border-color:#111 #777 #777 #111;
+  font-size:28px;position:relative
+}
+.done .icon{background:#6b5c15}
+.lock{
+  position:absolute;inset:0;display:grid;place-items:center;
+  background:rgba(0,0,0,.5);font-size:18px
+}
+.info{min-width:0;flex:1}
+.nodeTitle{font-size:8px;line-height:1.55;color:#222}
+.done .nodeTitle{color:#654f00}
+.nodeMeta{font-size:6px;margin-top:6px;color:#555}
+.done .nodeMeta{color:#654f00}
+.connector{
+  width:5px;height:25px;background:#111;position:absolute;top:100%;left:50%;
+  transform:translateX(-50%);z-index:1
+}
+.node:last-child .connector{display:none}
+
+.modalBg{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);
+  z-index:50;align-items:center;justify-content:center;padding:14px
+}
+.modalBg.show{display:flex}
+.modal{
+  width:min(100%,390px);max-height:90dvh;overflow:auto;
+  background:#c6c6c6;border:4px solid;
+  border-color:#fff #555 #555 #fff;color:#222;
+  box-shadow:0 6px 0 #000;padding:14px
+}
+.mtop{text-align:center}
+.micon{
+  width:80px;height:80px;margin:0 auto 12px;display:grid;place-items:center;
+  background:#3a3a3a;border:4px solid;border-color:#111 #777 #777 #111;
+  font-size:40px
+}
+.mtitle{font-size:11px;line-height:1.6;color:var(--yellow);text-shadow:2px 2px #000;margin-bottom:8px}
+.mrarity{font-size:6px;margin-bottom:14px;color:#555}
+.mdesc{
+  background:#111;color:#fff;border:3px solid #555;padding:12px;
+  font-size:8px;line-height:1.75;text-align:left
+}
+.mpoints{text-align:center;margin:14px 0;color:#222;font-size:9px}
+.actions{display:grid;gap:8px}
+.btn{
+  border:4px solid;border-color:#fff #555 #555 #fff;
+  background:#8b8b8b;color:#fff;text-shadow:1px 1px #000;
+  padding:13px 8px;font-size:8px
+}
+.btn:active{border-color:#555 #fff #fff #555}
+.btn.complete{background:#3d9b25}
+.btn.undo{background:#a33}
+.btn.blue{background:#3f76e4}
+.btn.gray{background:#666}
+
+.menu{
+  position:fixed;right:12px;bottom:12px;z-index:20;
+  width:48px;height:48px;border:4px solid;
+  border-color:#fff #555 #555 #fff;background:#8b8b8b;color:#fff;
+  font-size:18px;box-shadow:0 3px #000
+}
+.menu:active{border-color:#555 #fff #fff #555}
+
+.drawer{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:40;
+  align-items:flex-end
+}
+.drawer.show{display:flex}
+.drawerBox{
+  width:100%;background:#c6c6c6;border:4px solid;
+  border-color:#fff #555 #555 #fff;padding:14px;color:#222;
+  max-height:82dvh;overflow:auto
+}
+.drawerTitle{text-align:center;font-size:11px;margin-bottom:14px}
+.menuGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.menuGrid .btn{min-height:58px}
+.small{font-size:6px;line-height:1.6;color:#444;margin:12px 2px 0}
+
+.toast{
+  position:fixed;top:12px;right:-410px;z-index:100;width:min(92%,370px);
+  background:#111;border:3px solid #555;color:#fff;padding:10px;
+  display:flex;gap:10px;align-items:center;transition:right .35s steps(5);
+  box-shadow:0 4px #000
+}
+.toast.show{right:12px}
+.toastIcon{font-size:26px}
+.toastTitle{font-size:8px;color:var(--yellow);margin-bottom:6px}
+.toastText{font-size:7px;line-height:1.5}
+
+.overlayMsg{
+  position:fixed;inset:0;z-index:90;display:none;place-items:center;
+  pointer-events:none
+}
+.overlayMsg.show{display:grid}
+.levelup{
+  background:#111;border:4px solid var(--green);padding:18px;text-align:center;
+  box-shadow:0 0 0 5px #000,0 0 30px rgba(85,255,85,.45);
+  animation:pop .5s steps(5)
+}
+.levelup div:first-child{color:var(--yellow);font-size:8px;margin-bottom:12px}
+.levelup div:last-child{color:#fff;font-size:11px;line-height:1.7}
+@keyframes pop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
+.particle{
+  position:fixed;z-index:120;width:7px;height:7px;background:var(--green);
+  pointer-events:none;animation:particle .75s steps(6) forwards;
+  box-shadow:0 0 0 1px #000
+}
+@keyframes particle{
+  0%{transform:translate(0,0) scale(1);opacity:1}
+  100%{transform:translate(var(--dx),var(--dy)) scale(.3);opacity:0}
+}
+
+.empty{text-align:center;color:#fff;font-size:8px;line-height:2;padding:50px 15px}
+hr{border:0;border-top:3px solid #555;margin:14px 0}
+
+@media(min-width:700px){
+  .app{max-width:650px;margin:auto;box-shadow:0 0 30px #000}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <header class="panel header">
+      <div class="title">MANU ADVANCEMENTS</div>
+      <div class="subtitle">VACANZA EDITION • 67 QUEST</div>
+      <div class="stats">
+        <div class="stat">COMPLETATI<b id="doneCount">0/28</b></div>
+        <div class="stat">PUNTI<b id="points">0</b></div>
+      </div>
+      <div class="rank">
+        <div class="rankline"><span id="rankPrev">67 LOSER</span><span class="rankname" id="rankName">67 LOSER</span><span id="rankNext">67 NPC</span></div>
+        <div class="xp"><div class="xpfill" id="xpFill"></div></div>
+        <div class="xptext" id="xpText">0 / 150 XP</div>
+      </div>
+    </header>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div class="catbar" id="catbar"></div>
+
+  <main class="world bg-cat-0" id="world">
+    <div class="tree" id="tree"></div>
+  </main>
+
+  <button class="menu" onclick="openDrawer()" aria-label="Menu">☰</button>
+</div>
+
+<div class="modalBg" id="modalBg" onclick="bgClose(event)">
+  <section class="modal">
+    <div class="mtop">
+      <div class="micon" id="mIcon">🏆</div>
+      <div class="mtitle" id="mTitle"></div>
+      <div class="mrarity" id="mRarity"></div>
+    </div>
+    <div class="mdesc" id="mDesc"></div>
+    <div class="mpoints" id="mPoints"></div>
+    <div class="actions">
+      <button class="btn complete" id="completeBtn"></button>
+      <button class="btn gray" onclick="closeModal()">CHIUDI</button>
+    </div>
+  </section>
+</div>
+
+<div class="drawer" id="drawer" onclick="drawerBg(event)">
+  <section class="drawerBox">
+    <div class="drawerTitle">⚙ MENU DEL MONDO</div>
+    <div class="menuGrid">
+      <button class="btn blue" onclick="randomMission()">🎲<br>MISSIONE RANDOM</button>
+      <button class="btn" onclick="showStats()">📊<br>STATISTICHE</button>
+      <button class="btn" onclick="exportSave()">💾<br>ESPORTA</button>
+      <button class="btn" onclick="document.getElementById('fileInput').click()">📥<br>IMPORTA</button>
+      <button class="btn" onclick="shareProgress()">📤<br>CONDIVIDI</button>
+      <button class="btn" onclick="showHelp()">❓<br>COME SI GIOCA</button>
+    </div>
+    <p class="small">Il salvataggio viene conservato automaticamente su questo dispositivo. Esporta il salvataggio prima di cambiare telefono o browser.</p>
+    <hr>
+    <button class="btn" onclick="resetSave()">☠ RESET MONDO</button>
+    <input id="fileInput" type="file" accept=".json,application/json" hidden onchange="importSave(event)">
+  </section>
+</div>
+
+<div class="toast" id="toast">
+  <div class="toastIcon">🏆</div>
+  <div><div class="toastTitle">OBIETTIVO RAGGIUNTO!</div><div class="toastText" id="toastText"></div></div>
+</div>
+
+<div class="overlayMsg" id="overlayMsg">
+  <div class="levelup"><div>NUOVO RANGO!</div><div id="newRank"></div></div>
+</div>
+
+<script>
+const missions = [
+{id:1,cat:0,pts:2,icon:"🗣️",title:"Assolutismo",desc:'Abolisci la parola "molto" e usa superlativi assoluti: bravissimo, malissimo, fortunatissimo, bravobravo, malemale.'},
+{id:2,cat:0,pts:3,icon:"🦈",title:"Dizionario Bizzarro",desc:'Fai entrare nel parlato "lardo", "poderoso", "squalo martello" e almeno una parola buffa spagnola.'},
+{id:12,cat:0,pts:4,icon:"🚫",title:"La Parola Proibita",desc:"Decidi che una parola è bannata. Fai rispettare il bando con serietà assoluta, poi ricomincia tu a spammarla."},
+{id:16,cat:0,pts:7,icon:"✅",title:"Yes Man",desc:'Per un intero giorno non puoi dire "no". Devi trovare una risposta alternativa per ogni richiesta.'},
+{id:17,cat:0,pts:4,icon:"🇪🇸",title:"El Conquistador",desc:"Per la prima mezza giornata usa l'accento più spagnolo che sai fare e inventa termini che credi siano spagnoli."},
+
+{id:3,cat:1,pts:6,icon:"📹",title:"Scherzo EPICO",desc:'Fai un video di uno scherzo che, se fosse su YouTube, chiameresti "Scherzo EPICO finito MALE".'},
+{id:7,cat:1,pts:8,icon:"📱",title:"Photobomb Leggendario",desc:"Finisci in un TikTok di gente a caso, ritrova il video e mandalo al gruppo."},
+{id:8,cat:1,pts:10,icon:"🎤",title:"Intervista ad Aura",desc:"Fai un'intervista a telegiornale, giornale, tiktoker o simili e cita esplicitamente: Monzambano, aura, Fabio, Dybala, Fortnite."},
+{id:11,cat:1,pts:5,icon:"📈",title:"Social Manager",desc:"Convinci il gruppo ad aprire un TikTok condiviso per contenuti random. Il tuo TikTok deve diventare il più virale."},
+{id:13,cat:1,pts:5,icon:"💸",title:"One EURO Challenge",desc:'Replica in almeno 3 o 4 posti il format "What can I buy at ... with one EURO".'},
+{id:24,cat:1,pts:7,icon:"🃏",title:"Joker di Valencia",desc:'Ricrea il video di Joker "la mia prima volta in Sardegna", sostituendo il riferimento con "la mia prima volta a Valencia".'},
+{id:27,cat:1,pts:4,icon:"😎",title:"Sticker Supremo",desc:"Crea uno sticker con un componente del team per ogni emozione che riesci a rappresentare."},
+
+{id:4,cat:2,pts:4,icon:"🧠",title:"Il Persuasore",desc:"Convinci 2/3 del gruppo di una cosa falsa e innocua."},
+{id:5,cat:2,pts:5,icon:"💦",title:"Battesimo Vestito",desc:"Convinci un componente consenziente del gruppo a fare il bagno vestito."},
+{id:10,cat:2,pts:6,icon:"🎭",title:"VIP per Caso",desc:"Aspetta che una persona stia interagendo con qualcuno, intervieni chiedendo un autografo e prova a creare una scena comica senza mettere nessuno a disagio."},
+{id:14,cat:2,pts:5,icon:"🔮",title:"Nostradamus 67",desc:"Durante la notte scrivi e sigilla una previsione assurda su cosa farà qualcuno del gruppo il giorno dopo. Ripetibile ogni giorno."},
+{id:18,cat:2,pts:6,icon:"⏰",title:"Hacker del Sonno",desc:"Con il consenso del proprietario del telefono, organizza uno scherzo con una sveglia due ore dopo che si è addormentato."},
+{id:19,cat:2,pts:8,icon:"🕰️",title:"Viaggiatore del Tempo",desc:"Con il consenso del gruppo, modifica temporaneamente gli orari dei telefoni e prova a convincerli che siano le 12 quando sono le 6."},
+{id:25,cat:2,pts:5,icon:"👃",title:"Tocca Naso Tocca Verde",desc:"Per un giorno intero, ogni ora, fai partir il rituale. Usa sveglie e rendilo il più teatrale possibile."},
+{id:26,cat:2,pts:6,icon:"🚨",title:"Responsabile Sicurezza",desc:"Organizza un finto test di evacuazione solo in un luogo privato e senza interferire con emergenze o attività reali."},
+
+{id:6,cat:3,pts:7,icon:"🏆",title:"Il Collezionista",desc:"Torna a casa con un oggetto trofeo totalmente assurdo e inaspettato."},
+{id:9,cat:3,pts:5,icon:"🎰",title:"All-In!",desc:"Se c'è un casinò e sei maggiorenne, entra con 5 euro e fai una puntata simbolica alla roulette. Gioca solo quanto sei disposto a perdere."},
+{id:15,cat:3,pts:9,icon:"🌅",title:"Nutscapes",desc:"Con il consenso di tutti i partecipanti, crea una foto artistica con silhouette e tramonto/alba. Niente pubblicazioni senza consenso."},
+{id:20,cat:3,pts:10,icon:"🐉",title:"Cacciatore del Drago",desc:"Avvia una partita vanilla di Minecraft durante la vacanza e sconfiggi l'Ender Dragon."},
+{id:21,cat:3,pts:2,icon:"🎮",title:"Curatore Mobile",desc:"Trova quello che secondo te è il miglior gioco mobile di sempre e convinci il gruppo a provarlo."},
+{id:22,cat:3,pts:3,icon:"🔥",title:"Clipper Supremo",desc:"Portami a casa un Clipper buffo come souvenir."},
+{id:23,cat:3,pts:5,icon:"⚽",title:"Joga Bonito",desc:"Gioca a calcio con un gruppo di spagnoli e usa musica brasiliana come sottofondo, se tutti sono d'accordo."},
+{id:28,cat:3,pts:9,icon:"👑",title:"Capo del 67",desc:"Crea il contest del 67, stabilisci le regole, fai una selezione accurata ed eleggi ufficialmente il Capo del 67."}
+];
+
+const categories=["🗣️ PARLATO","📱 SOCIAL","🤡 CAOS","🔥 IMPRESE"];
+const ranks=[
+  {name:"67 LOSER",min:0},{name:"67 NPC",min:10},{name:"67 SOLDATO",min:25},
+  {name:"67 WARRIOR",min:45},{name:"67 SIGMA",min:70},{name:"67 AURA",min:100},
+  {name:"DYBALA MEGA SUPER AURA",min:135}
+];
+const maxPoints=missions.reduce((a,m)=>a+m.pts,0);
+
+let state=loadState(), currentCat=0, selected=null;
+
+function loadState(){
+  try{return JSON.parse(localStorage.getItem("manu_advancements_v2"))||{done:{},completedAt:{}}}
+  catch(e){return {done:{},completedAt:{}}}
+}
+function save(){localStorage.setItem("manu_advancements_v2",JSON.stringify(state))}
+function init(){
+  renderTabs(); renderTree(); updateUI();
+}
+function renderTabs(){
+  const el=document.getElementById("tabs");el.innerHTML="";
+  categories.forEach((c,i)=>{
+    const b=document.createElement("button");
+    b.className="tab"+(i===currentCat?" active":"");b.textContent=c;
+    b.onclick=()=>{currentCat=i;renderTabs();renderTree()};
+    el.appendChild(b);
+  });
+  updateCategoryBar();
+}
+function updateCategoryBar(){
+  const ms=missions.filter(m=>m.cat===currentCat);
+  const d=ms.filter(m=>state.done[m.id]).length;
+  const pts=ms.reduce((a,m)=>a+(state.done[m.id]?m.pts:0),0);
+  const total=ms.reduce((a,m)=>a+m.pts,0);
+  document.getElementById("catbar").textContent=
+    categories[currentCat]+"  •  "+d+"/"+ms.length+" COMPLETATI  •  "+pts+"/"+total+" XP";
+}
+function renderTree(){
+  const worldEl = document.getElementById("world");
+  if(worldEl){
+    worldEl.className = "world bg-cat-" + currentCat;
+  }
+  
+  const tree=document.getElementById("tree");tree.innerHTML="";
+  const list=missions.filter(m=>m.cat===currentCat);
+  if(!list.length){tree.innerHTML='<div class="empty">NESSUN ADVANCEMENT</div>';return}
+  updateCategoryBar();
+  list.forEach((m,i)=>{
+    const done=!!state.done[m.id];
+    const unlocked=true;
+    const n=document.createElement("button");
+    n.className="node"+(done?" done":"");
+    n.onclick=()=>openMission(m,true);
+    n.innerHTML=`
+      <div class="icon">${m.icon}${!unlocked&&!done?'<span class="lock">🔒</span>':""}</div>
+      <div class="info">
+        <div class="nodeTitle">${m.title}</div>
+        <div class="nodeMeta">${done?"✓ COMPLETATO":"★ "+m.pts+" XP"}</div>
+      </div>
+      ${i<list.length-1?'<span class="connector"></span>':""}`;
+    tree.appendChild(n);
+  });
+}
+function getPoints(){
+  return missions.reduce((sum,m)=>sum+(state.done[m.id]?m.pts:0),0)
+}
+function rankFor(p){
+  let r=ranks[0];
+  ranks.forEach(x=>{if(p>=x.min)r=x});return r;
+}
+function updateUI(){
+  const p=getPoints(), done=missions.filter(m=>state.done[m.id]).length;
+  const r=rankFor(p), idx=ranks.indexOf(r), next=ranks[idx+1];
+  document.getElementById("doneCount").textContent=done+"/"+missions.length;
+  document.getElementById("points").textContent=p;
+  document.getElementById("rankName").textContent=r.name;
+  document.getElementById("rankPrev").textContent=r.name;
+  document.getElementById("rankNext").textContent=next?next.name:"MAX AURA";
+  const base=r.min, end=next?next.min:maxPoints;
+  const pct=next?((p-base)/(end-base))*100:100;
+  document.getElementById("xpFill").style.width=Math.max(0,Math.min(100,pct))+"%";
+  document.getElementById("xpText").textContent=p+" / "+maxPoints+" XP";
+}
+function openMission(m,unlocked){
+  selected=m;
+  document.getElementById("mIcon").textContent=m.icon;
+  document.getElementById("mTitle").textContent=m.title;
+  document.getElementById("mRarity").textContent=(m.pts>=9?"★ LEGGENDARIO":m.pts>=7?"◆ EPICO":m.pts>=5?"● RARO":"○ COMUNE");
+  document.getElementById("mDesc").textContent=m.desc;
+  document.getElementById("mPoints").textContent="★ "+m.pts+" PUNTI XP";
+  const btn=document.getElementById("completeBtn");
+  btn.style.display=unlocked?"block":"none";
+  btn.className="btn "+(state.done[m.id]?"undo":"complete");
+  btn.textContent=state.done[m.id]?"↩ ANNULLA COMPLETAMENTO":"✓ SEGNA COME COMPLETATO";
+  btn.onclick=()=>toggleMission(m);
+  document.getElementById("modalBg").classList.add("show");
+}
+function closeModal(){document.getElementById("modalBg").classList.remove("show");selected=null}
+function bgClose(e){if(e.target.id==="modalBg")closeModal()}
+function toggleMission(m){
+  const before=getPoints();
+  const wasCompleted=!!state.done[m.id];
+  if(state.done[m.id]){delete state.done[m.id];delete state.completedAt[m.id]}
+  else{
+    state.done[m.id]=true;state.completedAt[m.id]=new Date().toISOString();
+    showToast(m.title,m.pts);
+  }
+  save();renderTree();updateUI();
+  if(!wasCompleted) burst();
+  const after=getPoints();
+  if(after>before){
+    const oldRank=rankFor(before),newRank=rankFor(after);
+    if(oldRank.name!==newRank.name)showRank(newRank.name);
+  }
+  closeModal();
+}
+function burst(){
+  for(let i=0;i<18;i++){
+    const p=document.createElement("div");p.className="particle";
+    p.style.left=(50+Math.random()*10-5)+"vw";
+    p.style.top=(45+Math.random()*10-5)+"vh";
+    p.style.setProperty("--dx",(Math.random()*180-90)+"px");
+    p.style.setProperty("--dy",(Math.random()*180-120)+"px");
+    document.body.appendChild(p);setTimeout(()=>p.remove(),800);
+  }
+}
+function showToast(title,pts){
+  document.getElementById("toastText").textContent=title+" • +"+pts+" XP";
+  const t=document.getElementById("toast");t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),3500);
+}
+function showRank(name){
+  document.getElementById("newRank").textContent=name;
+  const o=document.getElementById("overlayMsg");o.classList.add("show");
+  setTimeout(()=>o.classList.remove("show"),2200);
+}
+function openDrawer(){document.getElementById("drawer").classList.add("show")}
+function closeDrawer(){document.getElementById("drawer").classList.remove("show")}
+function drawerBg(e){if(e.target.id==="drawer")closeDrawer()}
+
+function randomMission(){
+  closeDrawer();
+  const available=missions.filter(m=>!state.done[m.id]);
+  if(!available.length){alert("HAI COMPLETATO TUTTO. SEI UFFICIALMENTE DYBALA MEGA SUPER AURA.");return}
+  const m=available[Math.floor(Math.random()*available.length)];
+  currentCat=m.cat;renderTabs();renderTree();openMission(m,true);
+}
+function showStats(){
+  closeDrawer();
+  const p=getPoints(),done=missions.filter(m=>state.done[m.id]).length;
+  const catStats=categories.map((c,i)=>{
+    const ms=missions.filter(m=>m.cat===i),d=ms.filter(x=>state.done[x.id]).length;
+    return c+": "+d+"/"+ms.length;
+  }).join("\n");
+  alert("STATISTICHE\n\nXP: "+p+"/"+maxPoints+"\nCompletati: "+done+"/"+missions.length+"\n\n"+catStats);
+}
+function exportSave(){
+  const payload={version:2,game:"Manu Advancements",savedAt:new Date().toISOString(),state};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="manu-advancements-save.json";a.click();
+  URL.revokeObjectURL(a.href);closeDrawer();
+}
+function importSave(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(reader.result);
+      if(!data.state||!data.state.done)throw new Error();
+      state=data.state;save();renderTree();updateUI();closeDrawer();alert("SALVATAGGIO IMPORTATO.");
+    }catch(err){alert("Salvataggio non valido.")}
+  };reader.readAsText(file);e.target.value="";
+}
+async function shareProgress(){
+  const text="MANU ADVANCEMENTS\n"+getPoints()+" XP • "+missions.filter(m=>state.done[m.id]).length+"/"+missions.length+" completati\nRango: "+rankFor(getPoints()).name;
+  try{
+    if(navigator.share)await navigator.share({title:"Manu Advancements",text});
+    else await navigator.clipboard.writeText(text),alert("Progressi copiati negli appunti.");
+  }catch(e){}
+  closeDrawer();
+}
+function showHelp(){
+  closeDrawer();
+  alert("COME SI GIOCA\n\n1. Tocca un advancement.\n2. Leggi l'obiettivo.\n3. Quando lo completi, segnalo.\n4. Guadagna XP e scala i ranghi.\n\nI progressi vengono salvati automaticamente su questo dispositivo.");
+}
+function resetSave(){
+  closeDrawer();
+  if(confirm("SEI SICURO? Cancellerai tutti gli advancement completati su questo dispositivo.")){
+    state={done:{},completedAt:{}};save();renderTabs();renderTree();updateUI();
+  }
+}
+init();
+</script>
+</body>
+</html>
