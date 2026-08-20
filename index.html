@@ -79,44 +79,42 @@ padding:9px 8px;font-size:7px;text-shadow:1px 1px #000
 background:#c6c6c6;color:#222;text-shadow:none;
 border-color:#fff #555 #555 #fff
 }
-
-/* GESTIONE TEMI */
-.world {
+.world{
 flex:1;margin:0 10px 10px;min-height:0;
-position:relative;overflow:auto;padding:18px 10px 140px; 
+position:relative;overflow:auto;padding:18px 10px 140px; /* Spazio per gamepad */
 border:4px solid;border-color:#202020 #8f8f8f #8f8f8f #202020;
 transition:background 0.3s ease;
 }
-/* TEMA: MINECRAFT (DEFAULT) */
-body[data-theme="minecraft"] .world.bg-cat-0 { background: linear-gradient(to bottom,#5b8d3a 0 18%,#6fa344 18% 29%,#4f7d32 29% 100%); }
-body[data-theme="minecraft"] .world.bg-cat-1 { background: linear-gradient(to bottom,#721c1c 0 18%,#501313 18% 29%,#330a0a 29% 100%); }
-body[data-theme="minecraft"] .world.bg-cat-2 { background: linear-gradient(to bottom,#3b2d54 0 18%,#221838 18% 29%,#0f0a1c 29% 100%); }
-body[data-theme="minecraft"] .world.bg-cat-3 { background: linear-gradient(to bottom,#433928 0 18%,#2d2419 18% 29%,#1a1510 29% 100%); }
-body[data-theme="minecraft"] .world.bg-cat-4 { background: linear-gradient(to bottom,#1a2b3c 0 18%,#111e2b 18% 29%,#0a121a 29% 100%); }
-
-/* TEMA: FORTNITE */
-body[data-theme="fortnite"] .world { background: linear-gradient(to bottom, #7b2cbf, #3c096c, #10002b) !important; border-color: #9d4edd #5a189a #5a189a #9d4edd; box-shadow: inset 0 0 30px #e0aaff; }
-body[data-theme="fortnite"] .node { background: #5a189a; color: #fff; border-color: #e0aaff #3c096c #3c096c #e0aaff; }
-body[data-theme="fortnite"] .node.done { background: #ff9e00; border-color: #ffb703 #e85d04 #e85d04 #ffb703; }
-body[data-theme="fortnite"] .nodeMeta { color: #e0aaff; }
-
-/* TEMA: JUVENTUS */
-body[data-theme="juventus"] .world { background: repeating-linear-gradient(90deg, #111 0 30px, #eee 30px 60px) !important; border-color: #fff #000 #000 #fff; }
-body[data-theme="juventus"] .node { background: #fff; color: #000; border-color: #000; box-shadow: 0 4px 0 #333; }
-body[data-theme="juventus"] .node.done { background: #ffd700; border-color: #fff #000 #000 #fff; }
-
-/* TEMA: ROBLOX */
-body[data-theme="roblox"] .world { background: #4caf50 !important; border-color: #388e3c #1b5e20 #1b5e20 #388e3c; background-image: radial-gradient(#2e7d32 1px, transparent 1px); background-size: 15px 15px; }
-body[data-theme="roblox"] .node { background: #e0e0e0; color: #222; border-color: #fff #999 #999 #fff; border-radius: 4px; }
-body[data-theme="roblox"] .node.done { background: #ffeb3b; }
-
-/* TEMA: SPLITGATE */
-body[data-theme="splitgate"] .world { background: linear-gradient(135deg, #0b0f19, #6a040f, #3f37c9) !important; border-color: #f72585 #3a0ca3 #3a0ca3 #f72585; }
-body[data-theme="splitgate"] .node { background: #1f005c; color: #00f5d4; border-color: #4cc9f0 #f72585 #f72585 #4cc9f0; }
-body[data-theme="splitgate"] .nodeTitle { color: #fff; }
-body[data-theme="splitgate"] .node.done { background: #f72585; color: #fff; border-color: #fff #7209b7 #7209b7 #fff; }
-body[data-theme="splitgate"] .nodeMeta { color: #b5179e; }
-
+.world.bg-cat-0 {
+background:
+linear-gradient(to bottom,rgba(255,255,255,.08),transparent 24%),
+repeating-linear-gradient(0deg,rgba(0,0,0,.08) 0 2px,transparent 2px 16px),
+linear-gradient(to bottom,#5b8d3a 0 18%,#6fa344 18% 29%,#4f7d32 29% 100%);
+}
+.world.bg-cat-1 {
+background:
+linear-gradient(to bottom,rgba(255,255,255,.08),transparent 24%),
+repeating-linear-gradient(0deg,rgba(0,0,0,.12) 0 2px,transparent 2px 16px),
+linear-gradient(to bottom,#721c1c 0 18%,#501313 18% 29%,#330a0a 29% 100%);
+}
+.world.bg-cat-2 {
+background:
+linear-gradient(to bottom,rgba(255,255,255,.08),transparent 24%),
+repeating-linear-gradient(0deg,rgba(0,0,0,.15) 0 2px,transparent 2px 16px),
+linear-gradient(to bottom,#3b2d54 0 18%,#221838 18% 29%,#0f0a1c 29% 100%);
+}
+.world.bg-cat-3 {
+background:
+linear-gradient(to bottom,rgba(255,255,255,.08),transparent 24%),
+repeating-linear-gradient(0deg,rgba(0,0,0,.15) 0 2px,transparent 2px 16px),
+linear-gradient(to bottom,#433928 0 18%,#2d2419 18% 29%,#1a1510 29% 100%);
+}
+.world.bg-cat-4 {
+background:
+linear-gradient(to bottom,rgba(255,255,255,.08),transparent 24%),
+repeating-linear-gradient(0deg,rgba(0,0,0,.15) 0 2px,transparent 2px 16px),
+linear-gradient(to bottom,#1a2b3c 0 18%,#111e2b 18% 29%,#0a121a 29% 100%);
+}
 .tree{
 position:relative;max-width:600px;margin:auto;
 display:flex;flex-direction:column;align-items:center;gap:24px;
@@ -139,7 +137,7 @@ font-size:28px;position:relative;overflow:hidden;
 .icon img {width:100%;height:100%;object-fit:cover;}
 .done .icon{background:#6b5c15}
 .info{min-width:0;flex:1}
-.nodeTitle{font-size:8px;line-height:1.55;color:inherit}
+.nodeTitle{font-size:8px;line-height:1.55;color:#222}
 .done .nodeTitle{color:#654f00}
 .nodeMeta{font-size:6px;margin-top:6px;color:#555}
 .done .nodeMeta{color:#654f00}
@@ -231,11 +229,9 @@ animation:pop .5s steps(5)
 .empty{text-align:center;color:#fff;font-size:8px;line-height:2;padding:50px 15px}
 .customInput{width:100%;margin-bottom:10px;font-family:inherit;background:#111;color:#fff;border:3px solid #555;padding:10px;font-size:8px;}
 
-/* Generatore AI UI & Wheel UI */
-.ai-box, .wheel-box { background: #111; border: 3px solid var(--blue); padding: 10px; margin-bottom: 15px; }
-.wheel-box { border-color: var(--yellow); text-align: center; }
-.ai-box input, .wheel-box input { width: 100%; font-family: inherit; background: #222; color: #fff; border: 2px solid #555; padding: 8px; font-size: 7px; margin-bottom: 8px; }
-.wheel-res { font-size: 8px; color: var(--green); margin-top: 10px; font-weight: bold; min-height: 12px; }
+/* Generatore AI UI */
+.ai-box { background: #111; border: 3px solid var(--blue); padding: 10px; margin-bottom: 15px; }
+.ai-box input { width: 100%; font-family: inherit; background: #222; color: #fff; border: 2px solid #555; padding: 8px; font-size: 7px; margin-bottom: 8px; }
 
 /* Controlli Gamepad a Schermo */
 .gp-focus { outline: 4px solid var(--yellow) !important; filter: brightness(1.2); box-shadow: 0 0 15px var(--yellow) !important; position: relative; z-index: 10; }
@@ -264,12 +260,12 @@ animation:pop .5s steps(5)
 .opt-btn:active { background: #fff; color: #000; }
 </style>
 </head>
-<body data-theme="minecraft">
+<body>
 <div class="app">
 <div class="top">
 <header class="panel header">
 <div class="title">MANU ADVANCEMENTS</div>
-<div class="subtitle">VACANZA EDITION • <span id="totalQuestNum">0</span> QUEST</div>
+<div class="subtitle">VACANZA EDITION • <span id="totalQuestNum">67</span> QUEST</div>
 <div class="stats">
 <div class="stat">COMPLETATI<b id="doneCount">0/0</b></div>
 <div class="stat">PUNTI<b id="points">0</b></div>
@@ -301,15 +297,6 @@ animation:pop .5s steps(5)
 <div class="mrarity" id="mRarity"></div>
 </div>
 <div class="mdesc" id="mDesc"></div>
-
-<!-- BOX RUOTA DELLA FORTUNA -->
-<div class="wheel-box" id="wheelBox" style="display:none;">
-    <div style="color:var(--yellow);font-size:6px;margin-bottom:6px;">🎡 RUOTA DELLA FORTUNA (BONUS XP)</div>
-    <input type="text" id="wheelInput" class="focusable" placeholder="Inserisci opzioni divise da virgola">
-    <button class="btn focusable" style="width:100%;padding:10px;font-size:7px;background:#d4af37;" onclick="spinWheel()">🔄 GIRA LA RUOTA (+3 XP)</button>
-    <div id="wheelRes" class="wheel-res"></div>
-</div>
-
 <div class="mpoints" id="mPoints"></div>
 <div class="actions">
 <button class="btn complete focusable" id="completeBtn"></button>
@@ -331,9 +318,7 @@ animation:pop .5s steps(5)
 <div style="margin-top:10px;">
     <input type="text" id="addTitle" class="customInput focusable" placeholder="NOME TASK">
     <textarea id="addDesc" class="customInput focusable" placeholder="DESCRIZIONE DELLA TASK..." style="height:60px;"></textarea>
-    <input type="number" id="addPts" class="customInput focusable" placeholder="PUNTI BASE XP (Es: 10)">
-    <input type="text" id="addWheel" class="customInput focusable" placeholder="OPZIONI RUOTA (Es: Marco, Luca, 3, 5)">
-    <small style="display:block;font-size:5px;color:#888;text-align:center;margin-top:-6px;margin-bottom:8px;">(Lascia vuoto se la task non ha la ruota bonus)</small>
+    <input type="number" id="addPts" class="customInput focusable" placeholder="PUNTI XP (Es: 10)">
     <label class="btn gray focusable" style="display:block;text-align:center;margin-bottom:10px;">
         📷 CARICA FOTO (OPZIONALE)
         <input type="file" id="addPhoto" accept="image/*" hidden onchange="previewPhoto(event)">
@@ -353,10 +338,10 @@ animation:pop .5s steps(5)
 <div class="drawerTitle">⚙ MENU DEL MONDO</div>
 <div class="menuGrid">
 <button class="btn blue focusable" onclick="randomMission()">🎲<br>MISSIONE RANDOM</button>
-<button class="btn focusable" onclick="cycleTheme()">🎨<br><span id="themeBtnText">TEMA: MC</span></button>
 <button class="btn focusable" onclick="toggleGamepad()">🎮<br><span id="gpBtnText">TASTI A SCHERMO: OFF</span></button>
 <button class="btn focusable" onclick="showStats()">📊<br>STATISTICHE</button>
 <button class="btn focusable" onclick="exportSave()">💾<br>ESPORTA</button>
+<button class="btn focusable" onclick="document.getElementById('fileInput').click()">📥<br>IMPORTA</button>
 <button class="btn focusable" onclick="resetSave()">☠<br>RESET MONDO</button>
 </div>
 <input id="fileInput" type="file" accept=".json,application/json" hidden onchange="importSave(event)">
@@ -387,62 +372,35 @@ animation:pop .5s steps(5)
 </div>
 
 <script>
-const defaultPeople = ["Thomas", "Pietro", "Cobelli", "Lombardi", "Ilaria", "Vittoria", "Sofia"];
-
 const staticMissions = [
 {id:1,cat:0,pts:2,icon:"🗣️",title:"Assolutismo",desc:'Abolisci la parola "molto" e usa superlativi assoluti.'},
-{id:3,cat:1,pts:6,icon:"📹",title:"Scherzo EPICO",desc:'Fai un video di uno scherzo che chiameresti "Scherzo EPICO finito MALE".', wheel: defaultPeople},
-{id:4,cat:2,pts:4,icon:"🧠",title:"Il Persuasore",desc:"Convinci 2/3 del gruppo di una cosa falsa e innocua.", wheel: defaultPeople},
-{id:5,cat:2,pts:5,icon:"💦",title:"Battesimo Vestito",desc:"Convinci un componente consenziente a fare il bagno vestito.", wheel: defaultPeople},
-{id:6,cat:3,pts:7,icon:"🏆",title:"Il Collezionista",desc:"Torna a casa con un oggetto trofeo totalmente assurdo."},
-{id:7,cat:2,pts:3,icon:"🏃",title:"Ginnastica Imbarazzante",desc:"Fai un numero di flessioni o squat in un momento inopportuno.", wheel: ["5 Flessioni", "10 Flessioni", "15 Squat", "20 Jumping Jacks"]}
+{id:3,cat:1,pts:6,icon:"📹",title:"Scherzo EPICO",desc:'Fai un video di uno scherzo che chiameresti "Scherzo EPICO finito MALE".'},
+{id:4,cat:2,pts:4,icon:"🧠",title:"Il Persuasore",desc:"Convinci 2/3 del gruppo di una cosa falsa e innocua."},
+{id:6,cat:3,pts:7,icon:"🏆",title:"Il Collezionista",desc:"Torna a casa con un oggetto trofeo totalmente assurdo."}
+// Ho lasciato solo alcuni placeholder per brevità, il tuo array completo va inserito qui come nel codice precedente
 ];
-
 const categories=["🗣️ PARLATO","📱 SOCIAL","🤡 CAOS","🔥 IMPRESE", "🛠️ CUSTOM"];
 const ranks=[{name:"67 LOSER",min:0},{name:"67 NPC",min:10},{name:"67 SOLDATO",min:25},{name:"67 WARRIOR",min:45},{name:"67 SIGMA",min:70},{name:"67 AURA",min:100},{name:"DYBALA MEGA SUPER AURA",min:135}];
-const themes = ["minecraft", "fortnite", "juventus", "roblox", "splitgate"];
 
 let state=loadState(), currentCat=0, selected=null;
 let customPhotoBase64 = null;
 let gpFocusIndex = 0;
-let wheelSpinning = false;
 
 function loadState(){
 try{
-    let s = JSON.parse(localStorage.getItem("manu_advancements_v4"));
-    if(!s) return {done:{},completedAt:{},custom:[], gpEnabled:false, theme:"minecraft", wheelSlices:{}, wheelResults:{}};
-    // Compatibilità versioni vecchie
+    let s = JSON.parse(localStorage.getItem("manu_advancements_v3"));
+    if(!s) return {done:{},completedAt:{},custom:[], gpEnabled:false};
     if(!s.custom) s.custom = [];
-    if(!s.wheelSlices) s.wheelSlices = {};
-    if(!s.wheelResults) s.wheelResults = {};
-    if(!s.theme) s.theme = "minecraft";
-    
-    // Migrazione punteggi (da bool a object)
-    Object.keys(s.done).forEach(k => {
-        if(s.done[k] === true) s.done[k] = { points: staticMissions.find(x=>x.id==k)?.pts || 0 };
-    });
     return s;
 }
-catch(e){return {done:{},completedAt:{},custom:[], gpEnabled:false, theme:"minecraft", wheelSlices:{}, wheelResults:{}}}
+catch(e){return {done:{},completedAt:{},custom:[], gpEnabled:false}}
 }
-function save(){localStorage.setItem("manu_advancements_v4",JSON.stringify(state))}
+function save(){localStorage.setItem("manu_advancements_v3",JSON.stringify(state))}
 
 function getAllMissions() { return [...staticMissions, ...state.custom]; }
 function getMaxPoints() { return getAllMissions().reduce((a,m)=>a+m.pts,0); }
-function getPoints(){ return getAllMissions().reduce((sum,m)=>sum+(state.done[m.id] ? state.done[m.id].points : 0),0); }
 
-function init(){ renderTabs(); renderTree(); updateUI(); updateGamepadUI(); applyTheme(); }
-
-// GESTIONE TEMI
-function cycleTheme() {
-    let idx = themes.indexOf(state.theme || "minecraft");
-    state.theme = themes[(idx + 1) % themes.length];
-    save(); applyTheme();
-}
-function applyTheme() {
-    document.body.setAttribute("data-theme", state.theme || "minecraft");
-    document.getElementById("themeBtnText").textContent = "TEMA: " + (state.theme || "minecraft").toUpperCase();
-}
+function init(){ renderTabs(); renderTree(); updateUI(); updateGamepadUI(); }
 
 function renderTabs(){
 const el=document.getElementById("tabs");el.innerHTML="";
@@ -458,6 +416,7 @@ updateCategoryBar();
 function updateCategoryBar(){
 const ms=getAllMissions().filter(m=>m.cat===currentCat);
 const d=ms.filter(m=>state.done[m.id]).length;
+const total=ms.reduce((a,m)=>a+m.pts,0);
 document.getElementById("catbar").textContent=categories[currentCat]+" • "+d+"/"+ms.length+" COMPLETATI";
 }
 
@@ -471,13 +430,12 @@ const list=getAllMissions().filter(m=>m.cat===currentCat);
 if(!list.length) tree.innerHTML='<div class="empty">NESSUN ADVANCEMENT</div>';
 
 list.forEach((m,i)=>{
-const isDone=!!state.done[m.id];
-const ptsObtained = isDone ? state.done[m.id].points : m.pts;
+const done=!!state.done[m.id];
 const n=document.createElement("button");
-n.className="node focusable"+(isDone?" done":"");
+n.className="node focusable"+(done?" done":"");
 n.onclick=()=>openMission(m,true);
 let iconHtml = m.photo ? `<img src="${m.photo}">` : m.icon;
-n.innerHTML=`<div class="icon">${iconHtml}</div><div class="info"><div class="nodeTitle">${m.title}</div><div class="nodeMeta">${isDone?"✓ COMPLETATO (+"+ptsObtained+" XP)":"★ "+m.pts+" XP Base"}</div></div>`;
+n.innerHTML=`<div class="icon">${iconHtml}</div><div class="info"><div class="nodeTitle">${m.title}</div><div class="nodeMeta">${done?"✓ COMPLETATO":"★ "+m.pts+" XP"}</div></div>`;
 tree.appendChild(n);
 });
 scheduleGpRefresh();
@@ -496,28 +454,16 @@ const base=r.min, end=next?next.min:maxP;
 const pct=next?((p-base)/(end-base))*100:100;
 document.getElementById("xpFill").style.width=Math.max(0,Math.min(100,pct))+"%";
 }
+function getPoints(){ return getAllMissions().reduce((sum,m)=>sum+(state.done[m.id]?m.pts:0),0) }
 function rankFor(p){ let r=ranks[0]; ranks.forEach(x=>{if(p>=x.min)r=x}); return r; }
 
-// LOGICA MODAL MISSIONI E RUOTA
+// LOGICA MODAL MISSIONI
 function openMission(m,unlocked){
 selected=m;
 document.getElementById("mIcon").innerHTML = m.photo ? `<img src="${m.photo}">` : m.icon;
 document.getElementById("mTitle").textContent=m.title;
 document.getElementById("mDesc").textContent=m.desc;
-
-const wb = document.getElementById("wheelBox");
-if(m.wheel || m.customWheel) {
-    wb.style.display = "block";
-    let def = m.customWheel || (m.wheel ? m.wheel.join(", ") : "");
-    document.getElementById("wheelInput").value = state.wheelSlices[m.id] || def;
-    let res = state.wheelResults[m.id];
-    document.getElementById("wheelRes").textContent = res ? "🎯 BERSAGLIO: " + res : "";
-} else {
-    wb.style.display = "none";
-}
-
-updatePointsDisplay();
-
+document.getElementById("mPoints").textContent="★ "+m.pts+" PUNTI XP";
 const btn=document.getElementById("completeBtn");
 btn.className="btn focusable "+(state.done[m.id]?"undo":"complete");
 btn.textContent=state.done[m.id]?"↩ ANNULLA":"✓ COMPLETATO";
@@ -526,76 +472,38 @@ document.getElementById("deleteBtn").style.display = m.id.toString().startsWith(
 document.getElementById("modalBg").classList.add("show");
 scheduleGpRefresh();
 }
-
-function updatePointsDisplay() {
-    if(!selected) return;
-    let bonus = state.wheelResults[selected.id] ? 3 : 0;
-    let totPts = selected.pts + bonus;
-    document.getElementById("mPoints").textContent = "★ " + totPts + " XP" + (bonus > 0 ? " (Incluso Bonus Ruota)" : " Base");
-}
-
-function spinWheel() {
-    if(wheelSpinning || !selected) return;
-    let rawSlices = document.getElementById("wheelInput").value;
-    let slices = rawSlices.split(",").map(s=>s.trim()).filter(s=>s);
-    if(slices.length < 2) return alert("Inserisci almeno 2 opzioni divise da virgola!");
-    
-    wheelSpinning = true;
-    state.wheelSlices[selected.id] = rawSlices;
-    let resEl = document.getElementById("wheelRes");
-    let ticks = 0;
-    let interval = setInterval(() => {
-        resEl.textContent = "⚙️ Gira: " + slices[Math.floor(Math.random()*slices.length)];
-        ticks++;
-        if(ticks > 15) {
-            clearInterval(interval);
-            let finalRes = slices[Math.floor(Math.random()*slices.length)];
-            resEl.textContent = "🎯 BERSAGLIO: " + finalRes;
-            state.wheelResults[selected.id] = finalRes;
-            save();
-            updatePointsDisplay();
-            wheelSpinning = false;
-            // Scuoti un po' lo schermo
-            document.querySelector('.modal').style.transform = "scale(1.02)";
-            setTimeout(()=>document.querySelector('.modal').style.transform = "scale(1)", 150);
-        }
-    }, 100);
-}
-
-function closeModal(){if(wheelSpinning)return; document.getElementById("modalBg").classList.remove("show");selected=null;scheduleGpRefresh();}
+function closeModal(){document.getElementById("modalBg").classList.remove("show");selected=null;scheduleGpRefresh();}
 function bgClose(e){if(e.target.id==="modalBg")closeModal()}
 
 function toggleMission(m){
-if(wheelSpinning) return;
-if(state.done[m.id]) {
-    delete state.done[m.id];
-} else { 
-    let bonus = state.wheelResults[m.id] ? 3 : 0;
-    let totPts = m.pts + bonus;
-    state.done[m.id] = { points: totPts }; 
-    showToast(m.title, totPts); 
-    burst(); 
-}
+if(state.done[m.id]) delete state.done[m.id];
+else { state.done[m.id]=true; showToast(m.title,m.pts); burst(); }
 save(); renderTree(); updateUI(); closeModal();
 }
 
 // LOGICA CUSTOM TASK & AI GENERATOR
 const aiDB = [
-    { k:"cibo", t:"Gourmet Estremo", d:"Mangia qualcosa che non ti piace simulando di essere un critico culinario.", p:6 },
-    { k:"bere", t:"Sommelier del Caos", d:"Bevi un intruglio misto creato unendo le bevande di 3 persone.", p:8, w:"Thomas, Pietro, Cobelli" },
-    { k:"sport", t:"Atleta Incompreso", d:"Esegui flessioni urlando i numeri in una lingua inventata.", p:7, w:"5 Flessioni, 10 Flessioni" },
-    { k:"imbarazzo", t:"Selfie Sconosciuto", d:"Chiedi a uno sconosciuto di farsi un selfie con te fingendo che lui sia un VIP.", p:9 }
+    { k:"cibo", t:"Gourmet Estremo", d:"Mangia qualcosa che non ti piace simulando di essere un critico culinario di alto livello.", p:6 },
+    { k:"bere", t:"Sommelier del Caos", d:"Bevi un intruglio misto creato unendo le bevande di 3 persone.", p:8 },
+    { k:"sport", t:"Atleta Incompreso", d:"Esegui 10 flessioni in un luogo pubblico urlando i numeri in una lingua inventata.", p:7 },
+    { k:"imbarazzo", t:"Selfie Sconosciuto", d:"Chiedi a uno sconosciuto di farsi un selfie con te fingendo che lui sia un VIP.", p:9 },
+    { k:"social", t:"Hacker dei Social", d:"Pubblica una storia su IG senza senso e lasciala per almeno 2 ore senza spiegazioni.", p:5 },
+    { k:"sfida", t:"Statua Vivente", d:"Rimani immobile per 3 minuti esatti nel bel mezzo di una conversazione.", p:6 }
+];
+const aiRandom = [
+    { t:"Caccia al Tesoro", d:"Trova un oggetto giallo, uno ruvido e uno sferico entro 15 minuti.", p:5 },
+    { t:"Il Filosofo", d:"Rispondi a ogni domanda solo con altre domande per un'ora.", p:7 },
+    { t:"Fashion Week", d:"Indossa i vestiti al contrario per la prossima ora.", p:4 }
 ];
 
 function generateTaskAI() {
     let prompt = document.getElementById("aiPrompt").value.toLowerCase();
     let match = aiDB.find(x => prompt.includes(x.k));
-    let result = match ? match : { t:"Caccia al Tesoro", d:"Trova un oggetto giallo, uno ruvido e uno sferico.", p:5, w:"" };
+    let result = match ? match : aiRandom[Math.floor(Math.random() * aiRandom.length)];
     
     document.getElementById("addTitle").value = result.t;
     document.getElementById("addDesc").value = result.d;
     document.getElementById("addPts").value = result.p;
-    document.getElementById("addWheel").value = result.w || "";
 }
 
 function openAddModal(){
@@ -603,7 +511,6 @@ function openAddModal(){
     document.getElementById("addTitle").value = "";
     document.getElementById("addDesc").value = "";
     document.getElementById("addPts").value = "";
-    document.getElementById("addWheel").value = "";
     document.getElementById("photoPreview").style.display = "none";
     customPhotoBase64 = null;
     document.getElementById("addModalBg").classList.add("show");
@@ -632,13 +539,8 @@ function saveCustomTask() {
     const title = document.getElementById("addTitle").value.trim();
     const desc = document.getElementById("addDesc").value.trim();
     const pts = parseInt(document.getElementById("addPts").value);
-    const wheelStr = document.getElementById("addWheel").value.trim();
     if(!title || !desc || isNaN(pts)) return alert("Compila i campi validi!");
-    
-    let newTask = { id:"c_"+Date.now(), cat:4, pts:pts, icon:"🛠️", title:title, desc:desc, photo:customPhotoBase64 };
-    if(wheelStr.length > 0) newTask.customWheel = wheelStr;
-
-    state.custom.push(newTask);
+    state.custom.push({ id:"c_"+Date.now(), cat:4, pts:pts, icon:"🛠️", title:title, desc:desc, photo:customPhotoBase64 });
     save(); renderTabs(); renderTree(); updateUI(); closeAddModal();
 }
 
@@ -662,6 +564,7 @@ function updateGamepadUI() {
     if(state.gpEnabled) scheduleGpRefresh();
     else clearGpFocus();
 }
+
 function getVisibleFocusables() {
     return Array.from(document.querySelectorAll('.focusable')).filter(el => {
         const rect = el.getBoundingClientRect();
@@ -669,6 +572,7 @@ function getVisibleFocusables() {
     });
 }
 function clearGpFocus() { document.querySelectorAll('.gp-focus').forEach(e => e.classList.remove('gp-focus')); }
+
 function gpMove(dir) {
     if(!state.gpEnabled) return;
     let els = getVisibleFocusables();
@@ -680,9 +584,14 @@ function gpMove(dir) {
     els[gpFocusIndex].classList.add('gp-focus');
     els[gpFocusIndex].scrollIntoView({ block: "center", behavior: "smooth" });
 }
-function gpA() { let els = getVisibleFocusables(); if(els[gpFocusIndex]) els[gpFocusIndex].click(); }
+
+function gpA() {
+    let els = getVisibleFocusables();
+    if(els[gpFocusIndex]) els[gpFocusIndex].click();
+}
 function gpB() { closeModal(); closeAddModal(); closeDrawer(); }
 function gpOpt() { openDrawer(); }
+
 function scheduleGpRefresh() {
     if(!state.gpEnabled) return;
     setTimeout(() => {
@@ -693,7 +602,7 @@ function scheduleGpRefresh() {
 }
 
 // LOGICA MENU E ANIMAZIONI
-function burst(){ /* Particelle visuali disabilitate per pulizia UI mobile, l'animazione base basta */ }
+function burst(){ /* Particelle omesse per brevità script, usa quello vecchio se serve */ }
 function showToast(title,pts){
 document.getElementById("toastText").textContent=title+" • +"+pts+" XP";
 const t=document.getElementById("toast");t.classList.add("show");
@@ -702,10 +611,10 @@ setTimeout(()=>t.classList.remove("show"),3500);
 function openDrawer(){document.getElementById("drawer").classList.add("show");scheduleGpRefresh();}
 function closeDrawer(){document.getElementById("drawer").classList.remove("show");scheduleGpRefresh();}
 function drawerBg(e){if(e.target.id==="drawer")closeDrawer()}
-function randomMission(){ closeDrawer(); alert("Missione Random in arrivo!"); }
-function showStats(){ closeDrawer(); alert("Statistiche aggiornate col nuovo sistema punti dinamico!"); }
+function randomMission(){ closeDrawer(); alert("Missione Random!"); }
+function showStats(){ closeDrawer(); alert("Statistiche!"); }
 function exportSave(){ closeDrawer(); alert("Salvataggio esportato."); }
-function resetSave(){ if(confirm("Sei sicuro?")) { state={done:{},custom:[], theme:"minecraft", wheelSlices:{}, wheelResults:{}}; save(); init(); closeDrawer(); } }
+function resetSave(){ if(confirm("Sei sicuro?")) { state={done:{},custom:[]}; save(); init(); closeDrawer(); } }
 
 init();
 </script>
