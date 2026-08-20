@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#101010">
 <title>Manu Advancements</title>
+<!-- Libreria jsPDF per l'esportazione in PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 :root{
@@ -149,7 +151,6 @@ radial-gradient(circle at 65% 20%,#b8860b 0 6px,transparent 8px),
 radial-gradient(circle at 88% 70%,#2b1e10 0 8px,transparent 10px),
 linear-gradient(to bottom,transparent 0 35%,rgba(50,30,10,.4) 35% 100%);
 }
-/* Cat 4: CUSTOM (Diamond/Amethyst style) */
 .world.bg-cat-4 {
 background:
 linear-gradient(to bottom,rgba(255,255,255,.08),transparent 24%),
@@ -242,8 +243,10 @@ padding:13px 8px;font-size:8px
 .btn.blue{background:#3f76e4}
 .btn.gray{background:#666}
 .btn.red{background:#ff5555}
+.menu-container {
+position:fixed;right:12px;bottom:12px;z-index:20;display:flex;gap:8px;align-items:center;
+}
 .menu{
-position:fixed;right:12px;bottom:12px;z-index:20;
 width:48px;height:48px;border:4px solid;
 border-color:#fff #555 #555 #fff;background:#8b8b8b;color:#fff;
 font-size:18px;box-shadow:0 3px #000
@@ -298,6 +301,12 @@ box-shadow:0 0 0 1px #000
 .empty{text-align:center;color:#fff;font-size:8px;line-height:2;padding:50px 15px}
 hr{border:0;border-top:3px solid #555;margin:14px 0}
 .customInput{width:100%;margin-bottom:10px;font-family:inherit;background:#111;color:#fff;border:3px solid #555;padding:10px;font-size:8px;}
+
+/* STILI RUOTA DELLA FORTUNA */
+.wheel-container{text-align:center;position:relative;margin:10px auto;width:260px;height:260px;}
+#wheelCanvas{width:100%;height:100%;border-radius:50%;box-shadow:0 4px 10px rgba(0,0,0,0.5);border:4px solid #fff;}
+.wheel-pointer{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-top:20px solid var(--red);z-index:10;}
+
 @media(min-width:700px){
 .app{max-width:650px;margin:auto;box-shadow:0 0 30px #000}
 }
@@ -328,7 +337,10 @@ hr{border:0;border-top:3px solid #555;margin:14px 0}
 </div>
 <div class="tree" id="tree"></div>
 </main>
+<div class="menu-container">
+<button class="menu" onclick="randomMission()" aria-label="Missione Random">👁️</button>
 <button class="menu" onclick="openDrawer()" aria-label="Menu">☰</button>
+</div>
 </div>
 
 <!-- Modal Dettaglio Missione -->
@@ -371,13 +383,45 @@ hr{border:0;border-top:3px solid #555;margin:14px 0}
 </section>
 </div>
 
+<!-- Modal Ruota della Fortuna -->
+<div class="modalBg" id="wheelModalBg" onclick="bgCloseWheel(event)">
+<section class="modal">
+<div class="mtitle" style="text-align:center;color:var(--yellow)">ruota DELLA FORTUNA 🎡</div>
+<div class="wheel-container">
+    <div class="wheel-pointer"></div>
+    <canvas id="wheelCanvas" width="300" height="300"></canvas>
+</div>
+<div id="wheelResult" style="text-align:center;font-size:8px;margin:10px 0;color:var(--green);min-height:20px;"></div>
+<div class="actions">
+    <button class="btn complete" onclick="spinWheel()">GIRA LA RUOTA!</button>
+    <button class="btn blue" onclick="editWheelItems()">✏️ MODIFICA SPICCHI</button>
+    <button class="btn gray" onclick="closeWheelModal()">CHIUDI</button>
+</div>
+</section>
+</div>
+
+<!-- Modal Modifica Spicchi Ruota -->
+<div class="modalBg" id="editWheelModalBg" onclick="bgCloseEditWheel(event)">
+<section class="modal">
+<div class="mtitle" style="text-align:center;color:var(--blue)">PERSONALIZZA SPICCHI</div>
+<div style="margin-top:10px;font-size:7px;line-height:1.5;margin-bottom:8px;">Inserisci i nomi separati da virgola (es: Thomas, Pietro, Cobelli...)</div>
+<textarea id="wheelItemsInput" class="customInput" style="height:100px;"></textarea>
+<div class="actions" style="margin-top:10px;">
+    <button class="btn complete" onclick="saveWheelItems()">SALVA SPICCHI</button>
+    <button class="btn gray" onclick="closeEditWheelModal()">ANNULLA</button>
+</div>
+</section>
+</div>
+
 <div class="drawer" id="drawer" onclick="drawerBg(event)">
 <section class="drawerBox">
 <div class="drawerTitle">⚙ MENU DEL MONDO</div>
 <div class="menuGrid">
-<button class="btn blue" onclick="randomMission()">🎲<br>MISSIONE RANDOM</button>
+<button class="btn blue" onclick="openWheelModal()">🎡<br>RUOTA FORTUNA</button>
+<button class="btn blue" onclick="randomMission()">👁️<br>MISSIONE RANDOM</button>
 <button class="btn" onclick="showStats()">📊<br>STATISTICHE</button>
-<button class="btn" onclick="exportSave()">💾<br>ESPORTA</button>
+<button class="btn" onclick="exportPDF()">📄<br>ESPORTA PDF</button>
+<button class="btn" onclick="exportSave()">💾<br>ESPORTA JSON</button>
 <button class="btn" onclick="document.getElementById('fileInput').click()">📥<br>IMPORTA</button>
 <button class="btn" onclick="shareProgress()">📤<br>CONDIVIDI</button>
 <button class="btn" onclick="showHelp()">❓<br>COME SI GIOCA</button>
@@ -437,16 +481,25 @@ const ranks=[
 let state=loadState(), currentCat=0, selected=null;
 let customPhotoBase64 = null;
 
+// Gestione Ruota della Fortuna
+let wheelItems = ["Thomas", "Pietro", "Cobelli", "Lombardi", "Ilaria", "Vittoria", "Sofia"];
+let wheelAngle = 0;
+let isSpinning = false;
+
 function loadState(){
 try{
     let s = JSON.parse(localStorage.getItem("manu_advancements_v2"));
-    if(!s) return {done:{},completedAt:{},custom:[]};
+    if(!s) return {done:{},completedAt:{},custom:[], wheelItems: null};
     if(!s.custom) s.custom = [];
+    if(s.wheelItems && Array.isArray(s.wheelItems)) wheelItems = s.wheelItems;
     return s;
 }
 catch(e){return {done:{},completedAt:{},custom:[]}}
 }
-function save(){localStorage.setItem("manu_advancements_v2",JSON.stringify(state))}
+function save(){
+    state.wheelItems = wheelItems;
+    localStorage.setItem("manu_advancements_v2",JSON.stringify(state));
+}
 
 function getAllMissions() {
     return [...staticMissions, ...state.custom];
@@ -613,7 +666,6 @@ function previewPhoto(e){
     reader.onload = (event) => {
         const img = new Image();
         img.onload = () => {
-            // Riduciamo la qualità e le dimensioni della foto per non saturare la memoria del browser
             const canvas = document.createElement('canvas');
             const MAX_WIDTH = 250;
             const scaleSize = MAX_WIDTH / img.width;
@@ -644,7 +696,7 @@ function saveCustomTask() {
 
     const newTask = {
         id: "c_" + Date.now(),
-        cat: 4, // Categoria CUSTOM
+        cat: 4,
         pts: pts,
         icon: "🛠️",
         title: title,
@@ -675,7 +727,117 @@ function deleteCustomTask() {
         closeModal();
     }
 }
-// -----------------------------
+
+// ---- LOGICA RUOTA DELLA FORTUNA ----
+function openWheelModal(){
+    closeDrawer();
+    document.getElementById("wheelModalBg").classList.add("show");
+    document.getElementById("wheelResult").textContent = "";
+    drawWheel();
+}
+function closeWheelModal(){
+    document.getElementById("wheelModalBg").classList.remove("show");
+}
+function bgCloseWheel(e){if(e.target.id==="wheelModalBg")closeWheelModal()}
+
+function drawWheel(){
+    const canvas = document.getElementById("wheelCanvas");
+    const ctx = canvas.getContext("2d");
+    const width = canvas.width;
+    const height = canvas.height;
+    const centerX = width / 2;
+    const centerY = height / 2;
+    const radius = Math.min(centerX, centerY) - 5;
+    const numSegments = wheelItems.length;
+    const arcSize = (2 * Math.PI) / numSegments;
+
+    ctx.clearRect(0, 0, width, height);
+
+    const colors = ["#ff5555", "#ffff55", "#55ff55", "#3f76e4", "#ffd83d", "#d1b3ff", "#ff8c00", "#33e0ff"];
+
+    for(let i = 0; i < numSegments; i++){
+        const angle = wheelAngle + i * arcSize;
+        ctx.beginPath();
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, angle, angle + arcSize);
+        ctx.lineTo(centerX, centerY);
+        ctx.fill();
+        ctx.stroke();
+
+        // Disegno testo spicchio
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        ctx.rotate(angle + arcSize / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "#000";
+        ctx.font = "bold 10px monospace";
+        ctx.fillText(wheelItems[i], radius - 15, 4);
+        ctx.restore();
+    }
+}
+
+function spinWheel(){
+    if(isSpinning) return;
+    isSpinning = true;
+    document.getElementById("wheelResult").textContent = "Gira la ruota...";
+    
+    const numSegments = wheelItems.length;
+    const minSpins = 5;
+    const extraSpins = Math.random() * 5;
+    const totalSpinAngle = (minSpins + extraSpins) * 2 * Math.PI;
+    const targetAngle = wheelAngle + totalSpinAngle;
+
+    let startTime = null;
+    const duration = 3000; // 3 secondi
+
+    function animateSpin(timestamp){
+        if(!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing cubic out
+        const ease = 1 - Math.pow(1 - progress, 3);
+        wheelAngle = wheelAngle + (targetAngle - wheelAngle) * ease;
+        drawWheel();
+
+        if(progress < 1){
+            requestAnimationFrame(animateSpin);
+        } else {
+            isSpinning = false;
+            // Calcolo vincitore in base alla freccia in alto (alle ore 12 / -PI/2)
+            const normalizedAngle = (2 * Math.PI - (wheelAngle % (2 * Math.PI))) % (2 * Math.PI);
+            const arcSize = (2 * Math.PI) / numSegments;
+            const winningIndex = Math.floor((normalizedAngle + arcSize / 2) % (2 * Math.PI) / arcSize);
+            const winner = wheelItems[winningIndex];
+            document.getElementById("wheelResult").textContent = "🎉 USCITO: " + winner.toUpperCase() + "!";
+        }
+    }
+    requestAnimationFrame(animateSpin);
+}
+
+function editWheelItems(){
+    closeWheelModal();
+    document.getElementById("wheelItemsInput").value = wheelItems.join(", ");
+    document.getElementById("editWheelModalBg").classList.add("show");
+}
+function closeEditWheelModal(){
+    document.getElementById("editWheelModalBg").classList.remove("show");
+    openWheelModal();
+}
+function bgCloseEditWheel(e){if(e.target.id==="editWheelModalBg")closeEditWheelModal()}
+
+function saveWheelItems(){
+    const val = document.getElementById("wheelItemsInput").value;
+    const items = val.split(",").map(s => s.trim()).filter(s => s.length > 0);
+    if(items.length < 2){
+        alert("Inserisci almeno 2 elementi separati da virgola!");
+        return;
+    }
+    wheelItems = items;
+    save();
+    closeEditWheelModal();
+}
 
 function burst(){
 for(let i=0;i<18;i++){
@@ -718,6 +880,54 @@ return c+": "+d+"/"+ms.length;
 }).join("\n");
 alert("STATISTICHE\n\nXP: "+p+"/"+getMaxPoints()+"\nCompletati: "+done+"/"+missions.length+"\n\n"+catStats);
 }
+
+// ---- ESPORTAZIONE PDF ----
+function exportPDF(){
+    closeDrawer();
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    doc.setFont("courier", "bold");
+    doc.setFontSize(18);
+    doc.text("MANU ADVANCEMENTS - LISTA MISSIONI", 14, 20);
+    
+    doc.setFontSize(10);
+    doc.setFont("courier", "normal");
+    let points = getPoints();
+    let currentRank = rankFor(points).name;
+    doc.text(`Punteggio Totale: ${points} XP  |  Rango: ${currentRank}`, 14, 28);
+    
+    let y = 38;
+    const missions = getAllMissions();
+    
+    categories.forEach((catName, catIndex) => {
+        if(y > 270) { doc.addPage(); y = 20; }
+        doc.setFont("courier", "bold");
+        doc.setFontSize(12);
+        doc.text(`--- ${catName} ---`, 14, y);
+        y += 8;
+        
+        const catMissions = missions.filter(m => m.cat === catIndex);
+        catMissions.forEach(m => {
+            if(y > 275) { doc.addPage(); y = 20; }
+            let status = state.done[m.id] ? "[COMPLETATO]" : "[ ]";
+            doc.setFont("courier", "bold");
+            doc.setFontSize(9);
+            doc.text(`${status} ${m.title} (${m.pts} XP)`, 18, y);
+            y += 5;
+            
+            doc.setFont("courier", "normal");
+            doc.setFontSize(8);
+            let descLines = doc.splitTextToSize(m.desc, 175);
+            doc.text(descLines, 22, y);
+            y += (descLines.length * 4) + 4;
+        });
+        y += 4;
+    });
+    
+    doc.save("manu-advancements-missions.pdf");
+}
+
 function exportSave(){
 const payload={version:2,game:"Manu Advancements",savedAt:new Date().toISOString(),state};
 const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
@@ -732,7 +942,8 @@ try{
 const data=JSON.parse(reader.result);
 if(!data.state||!data.state.done)throw new Error();
 state=data.state;
-if(!state.custom) state.custom = []; // Compatibilità con vecchi salvataggi
+if(!state.custom) state.custom = [];
+if(state.wheelItems && Array.isArray(state.wheelItems)) wheelItems = state.wheelItems;
 save();renderTree();updateUI();closeDrawer();alert("SALVATAGGIO IMPORTATO.");
 }catch(err){alert("Salvataggio non valido.")}
 };reader.readAsText(file);e.target.value="";
@@ -742,21 +953,23 @@ const missions = getAllMissions();
 const text="MANU ADVANCEMENTS\n"+getPoints()+" XP • "+missions.filter(m=>state.done[m.id]).length+"/"+missions.length+" completati\nRango: "+rankFor(getPoints()).name;
 try{
 if(navigator.share)await navigator.share({title:"Manu Advancements",text});
-else await navigator.clipboard.writeText(text),alert("Progressi copiati negli appunti.");
+else await navigator.clipboard.writeText(text);
+alert("Progressi condivisi/copiati!");
 }catch(e){}
 closeDrawer();
 }
 function showHelp(){
 closeDrawer();
-alert("COME SI GIOCA\n\n1. Tocca un advancement.\n2. Leggi l'obiettivo.\n3. Quando lo completi, segnalo.\n4. Guadagna XP e scala i ranghi.\n\nI progressi vengono salvati automaticamente su questo dispositivo.");
+alert("COME SI GIOCA\n\n1. Seleziona una categoria tramite le tab in alto.\n2. Clicca su un advancement per leggerne i dettagli e segnarlo come completato.\n3. Guadagna XP, sali di rango e sblocca nuove aurore!\n4. Usa l'icona dell'occhio (👁️) per estrarre una missione casuale o il menu (☰) per la ruota e l'export PDF.");
 }
 function resetSave(){
-closeDrawer();
-if(confirm("SEI SICURO? Cancellerai tutti gli advancement completati e le task custom create su questo dispositivo.")){
-state={done:{},completedAt:{},custom:[]};save();renderTabs();renderTree();updateUI();
+if(confirm("Sei sicuro di voler resettare tutti i progressi?")){
+state={done:{},completedAt:{},custom:[], wheelItems:wheelItems};
+save();renderTree();updateUI();closeDrawer();
 }
 }
-init();
+
+window.onload=init;
 </script>
 </body>
 </html>
